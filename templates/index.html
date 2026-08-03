@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Welcome | Success People Parish{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Welcome to Success People Parish</h1>
+    <p>Log in to view your profile and results, or sign in as an administrator to manage members.</p>
+    <a class="btn-primary" href="{{ url_for('login') }}">Log In</a>
+</section>
+
+<section class="hero-note">
+    <p><strong>Demo accounts</strong></p>
+    <ul>
+        <li>Admin &mdash; username: <code>admin</code>, password: <code>admin123</code></li>
+        <li>Member &mdash; username: <code>MEM001</code>, password: <code>member123</code></li>
+    </ul>
+</section>
+{% endblock %}

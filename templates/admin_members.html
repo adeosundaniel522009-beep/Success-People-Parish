@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Members | Admin{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>Members</h2>
+    <a class="btn-primary" href="{{ url_for('admin_member_new') }}">+ Add Member</a>
+</div>
+
+<form method="GET" class="search-form">
+    <input type="text" name="q" placeholder="Search by name, member no. or department" value="{{ q }}">
+    <button type="submit" class="btn-ghost">Search</button>
+</form>
+
+{% if members %}
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Member No.</th>
+            <th>Department</th>
+            <th>Level</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in members %}
+        <tr>
+            <td>{{ m['full_name'] }}</td>
+            <td>{{ m['member_no'] }}</td>
+            <td>{{ m['department'] or '—' }}</td>
+            <td>{{ m['level'] or '—' }}</td>
+            <td class="actions-cell">
+                <a href="{{ url_for('admin_member_results', member_id=m['id']) }}">Results</a>
+                <a href="{{ url_for('admin_member_edit', member_id=m['id']) }}">Edit</a>
+                <form method="POST" action="{{ url_for('admin_member_delete', member_id=m['id']) }}"
+                      onsubmit="return confirm('Remove {{ m['full_name'] }}? This cannot be undone.');" class="inline-form">
+                    <button type="submit" class="link-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="empty-note">No members found.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}My Profile | Success People Parish{% endblock %}
+{% block content %}
+<section class="profile-card">
+    <h2>{{ member['full_name'] }}</h2>
+    <div class="profile-grid">
+        <div><span class="label">Member No.</span><span>{{ member['member_no'] }}</span></div>
+        <div><span class="label">Department</span><span>{{ member['department'] or '—' }}</span></div>
+        <div><span class="label">Level</span><span>{{ member['level'] or '—' }}</span></div>
+        <div><span class="label">Email</span><span>{{ member['email'] or '—' }}</span></div>
+        <div><span class="label">Phone</span><span>{{ member['phone'] or '—' }}</span></div>
+    </div>
+</section>
+
+<section>
+    <h3>My Results</h3>
+    {% if results %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Session</th>
+                <th>Semester</th>
+                <th>Course Code</th>
+                <th>Course Title</th>
+                <th>Score</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ r['session'] }}</td>
+                <td>{{ r['semester'] }}</td>
+                <td>{{ r['course_code'] }}</td>
+                <td>{{ r['course_title'] }}</td>
+                <td>{{ r['score'] }}</td>
+                <td><span class="grade-pill grade-{{ r['grade'] }}">{{ r['grade'] }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-note">No results have been published yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | Success People Parish{% endblock %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<section class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-number">{{ member_count }}</span>
+        <span class="stat-label">Members</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-number">{{ result_count }}</span>
+        <span class="stat-label">Result entries</span>
+    </div>
+</section>
+
+<div class="action-row">
+    <a class="btn-primary" href="{{ url_for('admin_member_new') }}">+ Add Member</a>
+    <a class="btn-ghost" href="{{ url_for('admin_members') }}">View All Members</a>
+</div>
+
+<section>
+    <h3>Recently Added Members</h3>
+    {% if recent_members %}
+    <table class="data-table">
+        <thead>
+            <tr><th>Name</th><th>Member No.</th><th>Department</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for m in recent_members %}
+            <tr>
+                <td>{{ m['full_name'] }}</td>
+                <td>{{ m['member_no'] }}</td>
+                <td>{{ m['department'] or '—' }}</td>
+                <td><a href="{{ url_for('admin_member_results', member_id=m['id']) }}">Manage results</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-note">No members yet. Add your first member above.</p>
+    {% endif %}
+</section>
+{% endblock %}
